@@ -8,7 +8,6 @@ import java.util.List;
 public interface CourseService {
     List<Course>getCourses(String name);
     Course getCourse(String code);
-
     Course addCourse(Course course);
     void deleteCourse(String code);
     Course modifyCourse(String code ,Course course);
