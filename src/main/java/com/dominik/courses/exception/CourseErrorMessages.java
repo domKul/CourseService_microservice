@@ -13,7 +13,8 @@ public enum CourseErrorMessages {
     COURSE_CAN_NOT_SET_ACTIVE_STATUS("Course can not set Active status." +
             " Participants limit is equals participants number"),
     COURSE_IS_NOT_ACTIVE("Course is not Active"),
-    COURSE_IS_ALREADY_INACTIVE("Course is already Inactive");
+    COURSE_IS_ALREADY_INACTIVE("Course is already Inactive"),
+    COURSE_WITH_GIVEN_CODE_IS_ALREADY_CREATED("Course code taken");
     private final String message;
 
     CourseErrorMessages(String message) {

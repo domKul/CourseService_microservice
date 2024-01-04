@@ -1,6 +1,5 @@
 package com.dominik.courses.exception;
 
-import com.ctc.wstx.shaded.msv_core.verifier.ErrorInfo;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -21,7 +20,8 @@ public class HttpExceptionHandler {
                 || CourseErrorMessages.COURSE_CAN_NOT_SET_FULL_STATUS.equals(e.getCourseErrorMessages())
                 || CourseErrorMessages.COURSE_CAN_NOT_SET_ACTIVE_STATUS.equals(e.getCourseErrorMessages())
                 || CourseErrorMessages.STUDENT_ALREADY_ENROLLED.equals(e.getCourseErrorMessages())
-                || CourseErrorMessages.COURSE_IS_NOT_ACTIVE.equals(e.getCourseErrorMessages())) {
+                || CourseErrorMessages.COURSE_IS_NOT_ACTIVE.equals(e.getCourseErrorMessages())
+                || CourseErrorMessages.COURSE_WITH_GIVEN_CODE_IS_ALREADY_CREATED.equals(e.getCourseErrorMessages())) {
             httpStatus = HttpStatus.CONFLICT;
         }
         return ResponseEntity.status(httpStatus).body(new ErrorMessage(e.getCourseErrorMessages().getMessage()));

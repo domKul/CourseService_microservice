@@ -12,8 +12,8 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CourseServiceImpl implements CourseService {
@@ -45,7 +45,15 @@ public class CourseServiceImpl implements CourseService {
     @Override
     @Transactional
     public Course addCourse(Course course) {
+        Optional<Course> byId = courseCheck(course);
+        if (byId.isPresent()){
+            throw new CourseException(CourseErrorMessages.COURSE_WITH_GIVEN_CODE_IS_ALREADY_CREATED);
+        }
         return courseRepository.save(course);
+    }
+
+    private Optional<Course> courseCheck(Course course) {
+        return courseRepository.findById(course.getCode());
     }
 
     @Override
@@ -58,7 +66,7 @@ public class CourseServiceImpl implements CourseService {
     @Override
     @Transactional
     public Course modifyCourse(String code, Course course) {
-        return courseRepository.findById(code)
+        return courseCheck(course)
                 .map(courseInDb -> {
                     courseInDb.setName(course.getName());
                     courseInDb.setDescription(course.getDescription());
