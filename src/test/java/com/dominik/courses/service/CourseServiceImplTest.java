@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @SpringBootTest
 public class CourseServiceImplTest {
@@ -156,6 +156,18 @@ public class CourseServiceImplTest {
         //Then
         assertNotNull(listWithoutName);
         assertEquals(3,listWithoutName.size());
+    }
+
+    @Test
+    void shouldDeleteCourseByCode(){
+        //Given
+        when(courseRepository.findById(course1.getCode())).thenReturn(Optional.ofNullable(course1));
+
+        //When
+        courseService.deleteCourse(course1.getCode());
+
+        //Then
+        verify(courseRepository, times(1)).delete(course1);
     }
 
 

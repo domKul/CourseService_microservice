@@ -57,6 +57,7 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
+    @Transactional
     public void deleteCourse(String code) {
         Course courseInDb = findCourseInDb(code);
         courseRepository.delete(courseInDb);
